@@ -29,6 +29,6 @@ class UserController extends Controller
         User::create($data);
         
         return redirect()->route('user.index')->with('notice' , '註冊成功');
-
     }
+    public function
 }

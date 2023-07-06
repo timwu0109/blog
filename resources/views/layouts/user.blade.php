@@ -8,6 +8,11 @@
 </head>
 <body>
 	<main>
+		@if (session()->has('notice'))
+			<div class="text-center bg-red-600 text-red-100">
+				{{ session()->get('notice') }}
+			</div>	
+		@endif
 		@yield('main')
 	</main>
 </body>
