@@ -33,11 +33,11 @@ class UserController extends Controller
 
         User::create($data);
         
-        return redirect()->route('user.index')->with('notice' , '註冊成功');
+        return redirect()->route('login')->with('notice' , '註冊成功');
     }
     public function show($id) 
     {
-        $user = User::find($id);
+        $user = auth()->user();
     
         return view('users.show' , ['user' => $user]);
     }
