@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\UserController;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,8 @@ Route::get('/', function () {
 Route::middleware('web')->group(function()
 {
     Route::resource('/user' , UserController::class);
+
+    Route::get('logout'  , [LogoutController::class , 'logout'])->name('logout');
 });
 
 Route::get('login' , [LoginController::class , 'showLoginForm'])->name('login');
