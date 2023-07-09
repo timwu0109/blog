@@ -19,8 +19,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/user'  ,  UserController::class);
 
-Route::prefix('user')->group(function () {
+Route::middleware('web')->group(function()
+{
+    Route::resource('/user' , UserController::class);
+});
+
+
+Route::prefix('user')->group(function () 
+{
     Route::resource('blog', BlogController::class);
 });
