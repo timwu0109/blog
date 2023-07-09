@@ -9,23 +9,25 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index() {
+    public function index() 
+    {
         $users = User::all();
         
         return view('users.index'  , ['users' => $users]);
     }
 
-    public function create() {
+    public function create() 
+    {
         return view('users.create');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request) 
+    {
         $data = $request->validate([
             'name' => 'required',
             'email' => 'required',
             'password' => 'required|min:10',
         ]);
-
 
         $data['password'] = Hash::make($data['password']);
 
@@ -33,13 +35,37 @@ class UserController extends Controller
         
         return redirect()->route('user.index')->with('notice' , '註冊成功');
     }
-    public function show($id) {
+    public function show($id) 
+    {
         $user = User::find($id);
-
+    
         return view('users.show' , ['user' => $user]);
     }
 
-    public function edit() {
-        return view('users.edit');
+    public function edit($id) 
+    {
+        $user = User::find($id);
+
+        return view('users.edit' , [ 'user' => $user]);
+    }
+
+    public function update(Request $request , $id)
+    {
+        $data = $request->validate([
+            'name' => 'required',
+            'email' => 'required'
+        ]);
+
+        User::find($id)->update($data);
+
+        return redirect()->route('user.show' , $id)->with('notice' , '修改成功');
+    }
+
+    public function destroy($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+
+        return redirect()->route('user.index')->with('notice' , '刪除成功'); 
     }
 }
