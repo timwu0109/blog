@@ -6,14 +6,13 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
-    public function index() 
+    public function __construct()
     {
-        $users = User::all();
-        
-        return view('users.index'  , ['users' => $users]);
+        $this->middleware('auth')->except('create','store'); 
     }
 
     public function create() 
@@ -25,7 +24,7 @@ class UserController extends Controller
     {
         $data = $request->validate([
             'name' => 'required',
-            'email' => 'required',
+            'email' => ['required', 'email', Rule::unique('users')],
             'password' => 'required|min:10',
         ]);
 

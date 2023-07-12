@@ -26,7 +26,7 @@ Route::get('/', function () {
 Route::middleware('web')->group(function()
 {
     Route::resource('/user' , UserController::class);
-
+    
     Route::get('logout'  , [LogoutController::class , 'logout'])->name('logout');
 });
 
