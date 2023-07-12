@@ -19,11 +19,12 @@ class LoginController extends Controller
             'password' => 'required|min:10'
         ]);
 
-        if (Auth::attempt($user)) {
+        if (auth()->attempt($user)) {
             $member = auth()->user();
             return redirect()->route('user.show' , $member)->with('notice' , '登入成功');
         } else {
-            return redirect()->route('login')->withErrors('帳號或密碼錯誤，請重新輸入');
+            return redirect()->route('login')->withErrors('請確認帳號密碼是否正確，並再試一次！！');
         }
+       
     }
 }
