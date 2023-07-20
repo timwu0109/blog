@@ -33,4 +33,11 @@ class BlogController extends Controller
 
         return redirect()->route('blog.index')->with('notice' , '文章建立成功');
     }
+
+    public function show($id)
+    {
+        $blog = Blog::find($id);
+
+        return view('blogs.show' , ['blog'=> $blog]);
+    }
 }
